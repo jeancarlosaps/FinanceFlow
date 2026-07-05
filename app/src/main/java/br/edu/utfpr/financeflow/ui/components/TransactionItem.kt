@@ -21,9 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.edu.utfpr.financeflow.data.model.Transaction
 import br.edu.utfpr.financeflow.data.model.TransactionType
+import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 import br.edu.utfpr.financeflow.ui.theme.LocalFinanceColors
 import br.edu.utfpr.financeflow.utils.DateFormatter
 import br.edu.utfpr.financeflow.utils.MoneyFormatter
@@ -83,5 +85,21 @@ fun TransactionItem(
                 color = accentColor
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TransactionItemPreview() {
+    FinanceFlowTheme(dynamicColor = false) {
+        TransactionItem(
+            transaction = Transaction(
+                id = 1L,
+                description = "Salário",
+                amount = 2500.0,
+                dateMillis = 0L,
+                type = TransactionType.INCOME
+            )
+        )
     }
 }

@@ -17,10 +17,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.edu.utfpr.financeflow.data.model.Transaction
+import br.edu.utfpr.financeflow.data.model.TransactionType
 import br.edu.utfpr.financeflow.ui.components.BalanceCard
 import br.edu.utfpr.financeflow.ui.components.EmptyState
 import br.edu.utfpr.financeflow.ui.components.TransactionItem
+import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 import br.edu.utfpr.financeflow.viewmodel.StatementUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,5 +75,24 @@ fun StatementScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun StatementScreenPreview() {
+    FinanceFlowTheme(dynamicColor = false) {
+        StatementScreen(
+            state = StatementUiState(
+                transactions = listOf(
+                    Transaction(1L, "Salário", 2500.0, 0L, TransactionType.INCOME),
+                    Transaction(2L, "Aluguel", 800.0, 0L, TransactionType.EXPENSE)
+                ),
+                balance = 1700.0,
+                totalIncome = 2500.0,
+                totalExpense = 800.0
+            ),
+            onAddClick = {}
+        )
     }
 }

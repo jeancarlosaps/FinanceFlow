@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -19,6 +20,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -32,10 +34,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.edu.utfpr.financeflow.data.model.TransactionType
 import br.edu.utfpr.financeflow.ui.components.TypeSelector
+import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 import br.edu.utfpr.financeflow.utils.DateFormatter
 import br.edu.utfpr.financeflow.viewmodel.LaunchFormState
 
@@ -115,7 +118,7 @@ fun LaunchScreen(
             }
             Spacer(Modifier.height(16.dp))
 
-            Text("Tipo", style = androidx.compose.material3.MaterialTheme.typography.labelMedium)
+            Text("Tipo", style = MaterialTheme.typography.labelMedium)
             Spacer(Modifier.height(4.dp))
             TypeSelector(selected = state.type, onSelect = onTypeChange)
             Spacer(Modifier.height(24.dp))
@@ -151,5 +154,21 @@ fun LaunchScreen(
         ) {
             DatePicker(state = datePickerState)
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LaunchScreenPreview() {
+    FinanceFlowTheme(dynamicColor = false) {
+        LaunchScreen(
+            state = LaunchFormState(),
+            onDescriptionChange = {},
+            onAmountChange = {},
+            onDateSelected = {},
+            onTypeChange = {},
+            onSave = { true },
+            onBack = {}
+        )
     }
 }

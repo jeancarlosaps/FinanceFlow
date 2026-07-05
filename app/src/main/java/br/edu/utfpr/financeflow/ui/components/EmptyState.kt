@@ -1,5 +1,6 @@
 package br.edu.utfpr.financeflow.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -13,7 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 
 @Composable
 fun EmptyState(
@@ -24,7 +27,7 @@ fun EmptyState(
             .fillMaxSize()
             .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+        verticalArrangement = Arrangement.Center
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Outlined.ReceiptLong,
@@ -45,5 +48,13 @@ fun EmptyState(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 4.dp)
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun EmptyStatePreview() {
+    FinanceFlowTheme(dynamicColor = false) {
+        EmptyState()
     }
 }
