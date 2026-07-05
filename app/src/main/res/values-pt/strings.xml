@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">FinanceFlow</string>
-
     <string name="statement_title">Controle Financeiro</string>
     <string name="launch_title">Novo lançamento</string>
 
