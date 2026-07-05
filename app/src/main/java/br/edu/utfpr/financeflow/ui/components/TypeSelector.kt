@@ -7,6 +7,8 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import br.edu.utfpr.financeflow.R
 import br.edu.utfpr.financeflow.data.model.TransactionType
 
 @Composable
@@ -23,7 +25,7 @@ fun TypeSelector(
                 onClick = { onSelect(type) },
                 shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size)
             ) {
-                Text(if (type == TransactionType.INCOME) "Receita" else "Despesa")
+                Text(stringResource(if (type == TransactionType.INCOME) R.string.type_income else R.string.type_expense))
             }
         }
     }

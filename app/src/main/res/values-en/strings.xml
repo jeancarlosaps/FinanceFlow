@@ -1,0 +1,40 @@
+<resources>
+    <string name="statement_title">Financial Control</string>
+    <string name="launch_title">New entry</string>
+
+    <string name="balance_current_label">Current balance</string>
+    <string name="balance_income_label">Income</string>
+    <string name="balance_expense_label">Expenses</string>
+    <string name="balance_last_updated">Last updated: %1$s</string>
+
+    <string name="statement_section">Statement</string>
+
+    <string name="empty_title">No entries yet</string>
+    <string name="empty_subtitle">Tap the + button to add your first income or expense.</string>
+
+    <string name="fab_new_entry">New</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_open_date_picker">Open date picker</string>
+    <string name="cd_income">Income</string>
+    <string name="cd_expense">Expense</string>
+
+    <string name="field_amount">Amount (R$)</string>
+    <string name="field_description">Description</string>
+    <string name="field_date">Date</string>
+    <string name="field_type">Type</string>
+
+    <string name="type_income">Income</string>
+    <string name="type_expense">Expense</string>
+
+    <string name="action_save">Save</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="snackbar_saved">Entry saved</string>
+
+    <string name="error_description_required">Enter a description</string>
+    <string name="error_amount_required">Enter the amount</string>
+    <string name="error_amount_invalid">Invalid amount</string>
+    <string name="error_amount_not_positive">Amount must be greater than zero</string>
+    <string name="error_date_required">Select a date</string>
+</resources>

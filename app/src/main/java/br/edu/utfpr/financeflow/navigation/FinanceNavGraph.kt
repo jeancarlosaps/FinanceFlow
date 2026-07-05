@@ -20,9 +20,12 @@ fun FinanceNavGraph(viewModel: TransactionViewModel) {
     ) {
         composable(Screen.Statement.route) {
             val state by viewModel.statementState.collectAsStateWithLifecycle()
+            val savedEvent by viewModel.savedEvent.collectAsStateWithLifecycle()
             StatementScreen(
                 state = state,
-                onAddClick = { navController.navigate(Screen.Launch.route) }
+                onAddClick = { navController.navigate(Screen.Launch.route) },
+                savedEvent = savedEvent,
+                onSavedEventConsumed = viewModel::onSavedEventConsumed
             )
         }
         composable(Screen.Launch.route) {

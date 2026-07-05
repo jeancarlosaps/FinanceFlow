@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class TransactionViewModel(
-    private val repository: TransactionRepository
+    private val repository: TransactionRepository,
+    private val now: () -> Long = System::currentTimeMillis
 ) : ViewModel() {
 
     private val _formState = MutableStateFlow(LaunchFormState())
@@ -21,6 +22,9 @@ class TransactionViewModel(
 
     private val _statementState = MutableStateFlow(StatementUiState())
     val statementState: StateFlow<StatementUiState> = _statementState.asStateFlow()
+
+    private val _savedEvent = MutableStateFlow(false)
+    val savedEvent: StateFlow<Boolean> = _savedEvent.asStateFlow()
 
     init {
         loadTransactions()
@@ -63,7 +67,12 @@ class TransactionViewModel(
         repository.insert(transaction)
         _formState.value = LaunchFormState()
         loadTransactions()
+        _savedEvent.value = true
         return true
+    }
+
+    fun onSavedEventConsumed() {
+        _savedEvent.value = false
     }
 
     fun loadTransactions() {
@@ -72,7 +81,8 @@ class TransactionViewModel(
             transactions = transactions,
             balance = BalanceCalculator.balance(transactions),
             totalIncome = BalanceCalculator.totalIncome(transactions),
-            totalExpense = BalanceCalculator.totalExpense(transactions)
+            totalExpense = BalanceCalculator.totalExpense(transactions),
+            lastUpdatedMillis = now()
         )
     }
 }

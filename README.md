@@ -40,8 +40,10 @@ Material Design 3, respeitando o conteúdo ministrado na disciplina.
 - Saldo calculado automaticamente, com totais de receitas e despesas
 - Seleção de data via DatePicker do Material 3
 - Validação de campos com mensagens amigáveis
+- Confirmação visual ao salvar (Snackbar)
 - Persistência local com SQLite
 - Tema claro, tema escuro e Dynamic Color (Android 12+)
+- Internacionalização completa (português e inglês)
 
 ## 🏗 Arquitetura
 

@@ -13,9 +13,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.edu.utfpr.financeflow.R
 import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 
 @Composable
@@ -36,13 +38,13 @@ fun EmptyState(
             modifier = Modifier.size(64.dp)
         )
         Text(
-            text = "Nenhum lançamento ainda",
+            text = stringResource(R.string.empty_title),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(top = 16.dp)
         )
         Text(
-            text = "Toque no botão + para registrar sua primeira receita ou despesa.",
+            text = stringResource(R.string.empty_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,

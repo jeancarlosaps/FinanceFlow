@@ -13,9 +13,10 @@ import org.junit.Test
 class TransactionViewModelTest {
 
     private fun viewModel(vararg initial: Transaction) =
-        TransactionViewModel(FakeTransactionRepository(initial.toList()))
+        TransactionViewModel(FakeTransactionRepository(initial.toList()), now = { fixedNow })
 
     private val date = 1_700_000_000_000L
+    private val fixedNow = 1_720_000_000_000L
 
     @Test
     fun `loads existing transactions and balance on init`() {
@@ -73,5 +74,25 @@ class TransactionViewModelTest {
         assertEquals("", vm.formState.value.description)
         assertEquals("", vm.formState.value.amount)
         assertNull(vm.formState.value.dateMillis)
+    }
+
+    @Test
+    fun `successful save emits saved event that can be consumed`() {
+        val vm = viewModel()
+        vm.onDescriptionChange("Salário")
+        vm.onAmountChange("2500,00")
+        vm.onDateSelected(date)
+
+        vm.save()
+        assertTrue(vm.savedEvent.value)
+
+        vm.onSavedEventConsumed()
+        assertFalse(vm.savedEvent.value)
+    }
+
+    @Test
+    fun `statement records last updated timestamp from clock`() {
+        val vm = viewModel()
+        assertEquals(fixedNow, vm.statementState.value.lastUpdatedMillis)
     }
 }
