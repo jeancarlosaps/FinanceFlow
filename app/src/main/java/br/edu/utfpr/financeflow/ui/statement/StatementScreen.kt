@@ -9,21 +9,28 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.edu.utfpr.financeflow.R
 import br.edu.utfpr.financeflow.data.model.Transaction
 import br.edu.utfpr.financeflow.data.model.TransactionType
 import br.edu.utfpr.financeflow.ui.components.BalanceCard
 import br.edu.utfpr.financeflow.ui.components.EmptyState
-import br.edu.utfpr.financeflow.ui.components.TransactionItem
+import br.edu.utfpr.financeflow.ui.components.TransactionCard
 import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 import br.edu.utfpr.financeflow.viewmodel.StatementUiState
 
@@ -31,16 +38,32 @@ import br.edu.utfpr.financeflow.viewmodel.StatementUiState
 @Composable
 fun StatementScreen(
     state: StatementUiState,
-    onAddClick: () -> Unit
+    onAddClick: () -> Unit,
+    savedEvent: Boolean = false,
+    onSavedEventConsumed: () -> Unit = {}
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val savedMessage = stringResource(R.string.snackbar_saved)
+
+    LaunchedEffect(savedEvent) {
+        if (savedEvent) {
+            snackbarHostState.showSnackbar(savedMessage)
+            onSavedEventConsumed()
+        }
+    }
+
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("FinanceFlow") })
+            TopAppBar(title = { Text(stringResource(R.string.statement_title)) })
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAddClick) {
-                Icon(Icons.Filled.Add, contentDescription = "Novo lançamento")
-            }
+            ExtendedFloatingActionButton(
+                onClick = onAddClick,
+                icon = { Icon(Icons.Filled.Add, contentDescription = null) },
+                text = { Text(stringResource(R.string.fab_new_entry)) },
+                modifier = Modifier.testTag("fab_new_entry")
+            )
         }
     ) { innerPadding ->
         if (state.transactions.isEmpty()) {
@@ -49,7 +72,8 @@ fun StatementScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
+                    .padding(innerPadding)
+                    .testTag("transaction_list"),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -57,12 +81,13 @@ fun StatementScreen(
                     BalanceCard(
                         balance = state.balance,
                         income = state.totalIncome,
-                        expense = state.totalExpense
+                        expense = state.totalExpense,
+                        lastUpdatedMillis = state.lastUpdatedMillis
                     )
                 }
                 item {
                     Text(
-                        text = "Extrato",
+                        text = stringResource(R.string.statement_section),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -71,7 +96,7 @@ fun StatementScreen(
                     items = state.transactions,
                     key = { it.id }
                 ) { transaction ->
-                    TransactionItem(transaction = transaction)
+                    TransactionCard(transaction = transaction)
                 }
             }
         }
@@ -90,7 +115,8 @@ fun StatementScreenPreview() {
                 ),
                 balance = 1700.0,
                 totalIncome = 2500.0,
-                totalExpense = 800.0
+                totalExpense = 800.0,
+                lastUpdatedMillis = 0L
             ),
             onAddClick = {}
         )

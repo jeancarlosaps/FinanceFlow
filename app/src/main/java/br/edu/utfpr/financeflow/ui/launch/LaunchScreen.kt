@@ -33,14 +33,28 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.annotation.StringRes
+import br.edu.utfpr.financeflow.R
 import br.edu.utfpr.financeflow.data.model.TransactionType
 import br.edu.utfpr.financeflow.ui.components.TypeSelector
 import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 import br.edu.utfpr.financeflow.utils.DateFormatter
+import br.edu.utfpr.financeflow.utils.ValidationError
 import br.edu.utfpr.financeflow.viewmodel.LaunchFormState
+
+@StringRes
+private fun messageFor(error: ValidationError): Int = when (error) {
+    ValidationError.DESCRIPTION_REQUIRED -> R.string.error_description_required
+    ValidationError.AMOUNT_REQUIRED -> R.string.error_amount_required
+    ValidationError.AMOUNT_INVALID -> R.string.error_amount_invalid
+    ValidationError.AMOUNT_NOT_POSITIVE -> R.string.error_amount_not_positive
+    ValidationError.DATE_REQUIRED -> R.string.error_date_required
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,10 +72,13 @@ fun LaunchScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Novo lançamento") },
+                title = { Text(stringResource(R.string.launch_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Voltar")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.cd_back)
+                        )
                     }
                 }
             )
@@ -77,23 +94,31 @@ fun LaunchScreen(
             OutlinedTextField(
                 value = state.amount,
                 onValueChange = onAmountChange,
-                label = { Text("Valor (R$)") },
+                label = { Text(stringResource(R.string.field_amount)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 isError = state.errors.amount != null,
-                supportingText = { state.errors.amount?.let { Text(it) } },
+                supportingText = {
+                    state.errors.amount?.let { Text(stringResource(messageFor(it))) }
+                },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("field_amount")
             )
             Spacer(Modifier.height(12.dp))
 
             OutlinedTextField(
                 value = state.description,
                 onValueChange = onDescriptionChange,
-                label = { Text("Descrição") },
+                label = { Text(stringResource(R.string.field_description)) },
                 isError = state.errors.description != null,
-                supportingText = { state.errors.description?.let { Text(it) } },
+                supportingText = {
+                    state.errors.description?.let { Text(stringResource(messageFor(it))) }
+                },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("field_description")
             )
             Spacer(Modifier.height(12.dp))
 
@@ -102,13 +127,20 @@ fun LaunchScreen(
                     value = state.dateMillis?.let { DateFormatter.format(it) } ?: "",
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text("Data") },
+                    label = { Text(stringResource(R.string.field_date)) },
                     trailingIcon = {
-                        Icon(Icons.Filled.CalendarMonth, contentDescription = null)
+                        Icon(
+                            Icons.Filled.CalendarMonth,
+                            contentDescription = stringResource(R.string.cd_open_date_picker)
+                        )
                     },
                     isError = state.errors.date != null,
-                    supportingText = { state.errors.date?.let { Text(it) } },
-                    modifier = Modifier.fillMaxWidth()
+                    supportingText = {
+                        state.errors.date?.let { Text(stringResource(messageFor(it))) }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("field_date")
                 )
                 Box(
                     modifier = Modifier
@@ -118,16 +150,21 @@ fun LaunchScreen(
             }
             Spacer(Modifier.height(16.dp))
 
-            Text("Tipo", style = MaterialTheme.typography.labelMedium)
+            Text(
+                stringResource(R.string.field_type),
+                style = MaterialTheme.typography.labelMedium
+            )
             Spacer(Modifier.height(4.dp))
             TypeSelector(selected = state.type, onSelect = onTypeChange)
             Spacer(Modifier.height(24.dp))
 
             Button(
                 onClick = { if (onSave()) onBack() },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("button_save")
             ) {
-                Text("Salvar")
+                Text(stringResource(R.string.action_save))
             }
         }
     }
@@ -143,12 +180,12 @@ fun LaunchScreen(
                     datePickerState.selectedDateMillis?.let(onDateSelected)
                     showDatePicker = false
                 }) {
-                    Text("Confirmar")
+                    Text(stringResource(R.string.action_confirm))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDatePicker = false }) {
-                    Text("Cancelar")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         ) {
