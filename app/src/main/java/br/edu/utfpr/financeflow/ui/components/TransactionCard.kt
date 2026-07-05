@@ -19,19 +19,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.edu.utfpr.financeflow.R
 import br.edu.utfpr.financeflow.data.model.Transaction
 import br.edu.utfpr.financeflow.data.model.TransactionType
 import br.edu.utfpr.financeflow.ui.theme.FinanceFlowTheme
 import br.edu.utfpr.financeflow.ui.theme.LocalFinanceColors
 import br.edu.utfpr.financeflow.utils.DateFormatter
-import br.edu.utfpr.financeflow.utils.MoneyFormatter
 
 @Composable
-fun TransactionItem(
+fun TransactionCard(
     transaction: Transaction,
     modifier: Modifier = Modifier
 ) {
@@ -39,9 +40,14 @@ fun TransactionItem(
     val isIncome = transaction.type == TransactionType.INCOME
     val accentColor = if (isIncome) financeColors.income else financeColors.expense
     val icon = if (isIncome) Icons.AutoMirrored.Filled.TrendingUp else Icons.AutoMirrored.Filled.TrendingDown
-    val signedText = (if (isIncome) "+ " else "- ") + MoneyFormatter.format(transaction.amount)
+    val typeDescription = stringResource(if (isIncome) R.string.cd_income else R.string.cd_expense)
+    val prefix = if (isIncome) "+ " else "- "
 
-    Card(modifier = modifier.fillMaxWidth()) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag("transaction_card")
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -57,7 +63,7 @@ fun TransactionItem(
             ) {
                 Icon(
                     imageVector = icon,
-                    contentDescription = null,
+                    contentDescription = typeDescription,
                     tint = accentColor
                 )
             }
@@ -79,10 +85,11 @@ fun TransactionItem(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            Text(
-                text = signedText,
-                style = MaterialTheme.typography.titleMedium,
-                color = accentColor
+            MoneyText(
+                value = transaction.amount,
+                prefix = prefix,
+                color = accentColor,
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
@@ -90,9 +97,9 @@ fun TransactionItem(
 
 @Preview(showBackground = true)
 @Composable
-fun TransactionItemPreview() {
+fun TransactionCardPreview() {
     FinanceFlowTheme(dynamicColor = false) {
-        TransactionItem(
+        TransactionCard(
             transaction = Transaction(
                 id = 1L,
                 description = "Salário",
