@@ -5,10 +5,9 @@ import java.util.Locale
 
 object MoneyFormatter {
 
-    private val locale = Locale.forLanguageTag("pt-BR")
+    private val currencyFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("pt-BR"))
 
-    fun format(value: Double): String =
-        NumberFormat.getCurrencyInstance(locale).format(value)
+    fun format(value: Double): String = currencyFormat.format(value)
 
     fun parse(text: String): Double? {
         val trimmed = text.replace("R$", "").replace(" ", "").trim()
