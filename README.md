@@ -1,11 +1,25 @@
-# FinanceFlow
+<h1 align="center">💸 FinanceFlow</h1>
 
-![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)
-![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-7F52FF?logo=kotlin&logoColor=white)
-![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=jetpackcompose&logoColor=white)
-![minSdk](https://img.shields.io/badge/minSdk-24-orange)
-![Tests](https://img.shields.io/badge/Tests-22%20passing-brightgreen)
-![License](https://img.shields.io/badge/License-Academic-blue)
+<p align="center">
+  Controle de fluxo de caixa para Android — cadastre receitas e despesas e acompanhe seu saldo em tempo real.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white" alt="Platform" />
+  <img src="https://img.shields.io/badge/Kotlin-2.1.0-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin" />
+  <img src="https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" />
+  <img src="https://img.shields.io/badge/minSdk-24-orange" alt="minSdk" />
+  <img src="https://img.shields.io/badge/Tests-22%20passing-brightgreen" alt="Tests" />
+  <img src="https://img.shields.io/badge/License-Academic-blue" alt="License" />
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/statement_light.png" alt="Tela de extrato" width="30%" />
+  &nbsp;&nbsp;
+  <img src="assets/screenshots/launch.png" alt="Tela de novo lançamento" width="30%" />
+  &nbsp;&nbsp;
+  <img src="assets/screenshots/statement_dark.png" alt="Tela de extrato em tema escuro" width="30%" />
+</p>
 
 ## 📖 Descrição
 
@@ -120,7 +134,7 @@ flowchart LR
 Pré-requisitos: Android Studio, JDK 17+ e Android SDK 36.
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/jeancarlosaps/FinanceFlow.git
 cd FinanceFlow
 ./gradlew assembleDebug      # gera o APK de debug
 ./gradlew installDebug       # instala em um dispositivo/emulador conectado
@@ -164,6 +178,9 @@ avaliados. Todos os itens obrigatórios e os três bônus estão implementados.
 
 Desenvolvido por **Jean Carlos** — Especialização em Programação para
 Dispositivos Móveis, UTFPR.
+
+[![GitHub](https://img.shields.io/badge/GitHub-jeancarlosaps-181717?logo=github&logoColor=white)](https://github.com/jeancarlosaps)
+[![Email](https://img.shields.io/badge/Email-jeancarlosaps@yahoo.com.br-D14836?logo=maildotru&logoColor=white)](mailto:jeancarlosaps@yahoo.com.br)
 
 ## 📄 Licença
 
