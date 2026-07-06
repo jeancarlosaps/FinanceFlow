@@ -34,7 +34,8 @@ import br.edu.utfpr.financeflow.utils.DateFormatter
 @Composable
 fun TransactionCard(
     transaction: Transaction,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
 ) {
     val financeColors = LocalFinanceColors.current
     val isIncome = transaction.type == TransactionType.INCOME
@@ -44,6 +45,7 @@ fun TransactionCard(
     val prefix = if (isIncome) "+ " else "- "
 
     Card(
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .testTag("transaction_card")

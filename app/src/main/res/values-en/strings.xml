@@ -31,6 +31,11 @@
     <string name="action_cancel">Cancel</string>
 
     <string name="snackbar_saved">Entry saved</string>
+    <string name="snackbar_removed">Entry removed</string>
+
+    <string name="delete_dialog_title">Remove entry</string>
+    <string name="delete_dialog_message">Remove \"%1$s\"?</string>
+    <string name="action_delete">Remove</string>
 
     <string name="error_description_required">Enter a description</string>
     <string name="error_amount_required">Enter the amount</string>
