@@ -1,4 +1,6 @@
 <resources>
+    <string name="app_name">Controle Financeiro</string>
+
     <string name="statement_title">Controle Financeiro</string>
     <string name="launch_title">Novo lançamento</string>
 
@@ -33,9 +35,9 @@
     <string name="snackbar_saved">Lançamento salvo</string>
     <string name="snackbar_removed">Lançamento removido</string>
 
-    <string name="delete_dialog_title">Remover lançamento</string>
-    <string name="delete_dialog_message">Deseja remover \"%1$s\"?</string>
-    <string name="action_delete">Remover</string>
+    <string name="delete_dialog_title">Excluir lançamento</string>
+    <string name="delete_dialog_message">Deseja excluir este lançamento?\n\n\"%1$s\"\n\nEsta ação não poderá ser desfeita.</string>
+    <string name="action_delete">Excluir</string>
 
     <string name="error_description_required">Informe a descrição</string>
     <string name="error_amount_required">Informe o valor</string>

@@ -1,4 +1,6 @@
 <resources>
+    <string name="app_name">Financial Control</string>
+
     <string name="statement_title">Financial Control</string>
     <string name="launch_title">New entry</string>
 
@@ -33,9 +35,9 @@
     <string name="snackbar_saved">Entry saved</string>
     <string name="snackbar_removed">Entry removed</string>
 
-    <string name="delete_dialog_title">Remove entry</string>
-    <string name="delete_dialog_message">Remove \"%1$s\"?</string>
-    <string name="action_delete">Remove</string>
+    <string name="delete_dialog_title">Delete entry</string>
+    <string name="delete_dialog_message">Delete this entry?\n\n\"%1$s\"\n\nThis action cannot be undone.</string>
+    <string name="action_delete">Delete</string>
 
     <string name="error_description_required">Enter a description</string>
     <string name="error_amount_required">Enter the amount</string>
