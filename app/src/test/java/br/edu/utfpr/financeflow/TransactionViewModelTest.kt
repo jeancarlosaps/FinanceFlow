@@ -2,6 +2,7 @@ package br.edu.utfpr.financeflow
 
 import br.edu.utfpr.financeflow.data.model.Transaction
 import br.edu.utfpr.financeflow.data.model.TransactionType
+import br.edu.utfpr.financeflow.viewmodel.StatementMessage
 import br.edu.utfpr.financeflow.viewmodel.TransactionViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -77,17 +78,31 @@ class TransactionViewModelTest {
     }
 
     @Test
-    fun `successful save emits saved event that can be consumed`() {
+    fun `successful save emits saved message that can be consumed`() {
         val vm = viewModel()
         vm.onDescriptionChange("Salário")
         vm.onAmountChange("2500,00")
         vm.onDateSelected(date)
 
         vm.save()
-        assertTrue(vm.savedEvent.value)
+        assertEquals(StatementMessage.SAVED, vm.message.value)
 
-        vm.onSavedEventConsumed()
-        assertFalse(vm.savedEvent.value)
+        vm.onMessageShown()
+        assertNull(vm.message.value)
+    }
+
+    @Test
+    fun `delete removes transaction, updates balance and emits removed message`() {
+        val vm = viewModel(
+            Transaction(id = 1L, description = "Salário", amount = 1000.0, dateMillis = date, type = TransactionType.INCOME),
+            Transaction(id = 2L, description = "Aluguel", amount = 400.0, dateMillis = date, type = TransactionType.EXPENSE)
+        )
+
+        vm.deleteTransaction(2L)
+
+        assertEquals(1, vm.statementState.value.transactions.size)
+        assertEquals(1000.0, vm.statementState.value.balance, 0.001)
+        assertEquals(StatementMessage.REMOVED, vm.message.value)
     }
 
     @Test

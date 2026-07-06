@@ -20,6 +20,14 @@ class SqliteTransactionRepository(
         return dbHelper.writableDatabase.insert(TransactionEntry.TABLE_NAME, null, values)
     }
 
+    override fun delete(id: Long): Int {
+        return dbHelper.writableDatabase.delete(
+            TransactionEntry.TABLE_NAME,
+            "${TransactionEntry.COLUMN_ID} = ?",
+            arrayOf(id.toString())
+        )
+    }
+
     override fun findAll(): List<Transaction> {
         val transactions = mutableListOf<Transaction>()
         val cursor = dbHelper.readableDatabase.query(

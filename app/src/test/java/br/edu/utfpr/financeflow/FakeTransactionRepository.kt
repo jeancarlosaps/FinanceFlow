@@ -18,4 +18,9 @@ class FakeTransactionRepository(
 
     override fun findAll(): List<Transaction> =
         stored.sortedByDescending { it.dateMillis }
+
+    override fun delete(id: Long): Int {
+        val removed = stored.removeAll { it.id == id }
+        return if (removed) 1 else 0
+    }
 }
