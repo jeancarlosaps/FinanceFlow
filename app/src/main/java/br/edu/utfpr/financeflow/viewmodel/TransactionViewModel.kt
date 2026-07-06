@@ -23,8 +23,8 @@ class TransactionViewModel(
     private val _statementState = MutableStateFlow(StatementUiState())
     val statementState: StateFlow<StatementUiState> = _statementState.asStateFlow()
 
-    private val _savedEvent = MutableStateFlow(false)
-    val savedEvent: StateFlow<Boolean> = _savedEvent.asStateFlow()
+    private val _message = MutableStateFlow<StatementMessage?>(null)
+    val message: StateFlow<StatementMessage?> = _message.asStateFlow()
 
     init {
         loadTransactions()
@@ -67,12 +67,18 @@ class TransactionViewModel(
         repository.insert(transaction)
         _formState.value = LaunchFormState()
         loadTransactions()
-        _savedEvent.value = true
+        _message.value = StatementMessage.SAVED
         return true
     }
 
-    fun onSavedEventConsumed() {
-        _savedEvent.value = false
+    fun deleteTransaction(id: Long) {
+        repository.delete(id)
+        loadTransactions()
+        _message.value = StatementMessage.REMOVED
+    }
+
+    fun onMessageShown() {
+        _message.value = null
     }
 
     fun loadTransactions() {
