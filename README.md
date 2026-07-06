@@ -85,6 +85,25 @@ flowchart TD
 - Componentes M3: `Card`, `TopAppBar`, `FloatingActionButton`,
   `SegmentedButton`, `OutlinedTextField` e `DatePicker`.
 
+## 🎨 Identidade Visual
+
+<p align="center">
+  <img src="assets/screenshots/icon.png" alt="Ícone do FinanceFlow" width="120" />
+</p>
+
+O launcher icon traduz o propósito do aplicativo: **crescimento financeiro**.
+Barras ascendentes acompanhadas de uma seta em curva representam a evolução do
+saldo e o controle das finanças ao longo do tempo.
+
+- **Conceito:** um gráfico minimalista de barras crescentes com seta de
+  tendência — leitura imediata de "finanças em evolução".
+- **Inspiração:** métricas de crescimento e relatórios financeiros.
+- **Material Design 3:** ícone adaptativo em vetor, com fundo na cor primária da
+  marca (verde) e formas simples em branco e verde de destaque, garantindo boa
+  leitura em temas claro e escuro.
+- **Objetivo:** uma identidade profissional, sóbria e coerente com a paleta do
+  app, evitando ícones genéricos.
+
 ## ⚙ Tecnologias
 
 - Kotlin
